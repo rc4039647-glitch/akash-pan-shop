@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akash Paan Shop</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+:root {
+  --bg: #f5f7f8;
+  --surface: #ffffff;
+  --fg: #12202b;
+  --muted: #5b6a76;
+  --line: #dde3e8;
+  --accent: #0b6e69;
+  --accent-soft: #dff1ef;
+  --warn: #9a3412;
+  --warn-soft: #fdeadd;
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e171d;
+    --surface: #152129;
+    --fg: #e8eef2;
+    --muted: #9aaab6;
+    --line: #26343e;
+    --accent: #4fc3bb;
+    --accent-soft: #15332f;
+    --warn: #f4a574;
+    --warn-soft: #3a2415;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e171d;
+  --surface: #152129;
+  --fg: #e8eef2;
+  --muted: #9aaab6;
+  --line: #26343e;
+  --accent: #4fc3bb;
+  --accent-soft: #15332f;
+  --warn: #f4a574;
+  --warn-soft: #3a2415;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  padding: 0 16px 48px;
+}
+.wrap { max-width: 1100px; margin: 0 auto; }
+header { padding-block: 28px 20px; display: flex; flex-direction: column; gap: 6px; }
+.eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+h1 { font-family: var(--font-display); font-size: clamp(26px, 6vw, 38px); line-height: 1.1; margin: 0; text-wrap: balance; }
+.tagline { color: var(--muted); margin: 0; max-width: 60ch; }
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.contact b {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.contact div div {
+  margin-top: 5px;
+  line-height: 1.7;
+}
+
+
+.tools { display: flex; flex-direction: column; gap: 12px; padding-block: 8px 20px; }
+.search {
+  width: 100%; padding: 11px 14px; font: inherit; color: var(--fg);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+}
+.search:focus-visible, .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.chip {
+  flex: none; font: inherit; font-size: 14px; padding: 7px 14px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer;
+}
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+:root[data-theme="dark"] .chip[aria-pressed="true"] { color: #062421; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .chip[aria-pressed="true"] { color: #062421; } }
+
+.count { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+@media (min-width: 700px) { .grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; } }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }  
+.thumb {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  background: hsl(var(--h) 45% 90%);
+  color: hsl(var(--h) 45% 28%);
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 700;
+}
+:root[data-theme="dark"] .thumb { background: hsl(var(--h) 25% 20%); color: hsl(var(--h) 55% 78%); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .thumb { background: hsl(var(--h) 25% 20%); color: hsl(var(--h) 55% 78%); } }
+.thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.body { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+.cat { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.name { font-family: var(--font-display); font-weight: 500; font-size: 16px; line-height: 1.25; margin: 0; overflow-wrap: anywhere; }
+.desc { color: var(--muted); font-size: 13px; margin: 0; overflow-wrap: anywhere; }
+.priceRow { margin-top: auto; padding-top: 8px; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; }
+.price { font-family: var(--font-display); font-weight: 700; font-size: 19px; font-variant-numeric: tabular-nums; }
+.mrp { color: var(--muted); text-decoration: line-through; font-size: 13px; font-variant-numeric: tabular-nums; }
+.unit { color: var(--muted); font-size: 12px; }
+.tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+.tag.out { background: var(--warn-soft); color: var(--warn); }
+.empty { padding: 40px 0; color: var(--muted); text-align: center; }
+.brand { font-size: 13px; font-weight: 600; color: var(--accent); }
+footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+@media (prefers-reduced-motion: no-preference) { .card { transition: border-color .15s; } .card:hover { border-color: var(--accent); } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow" id="eyebrow">Product Catalog</div>
+    <h1 id="shopName">Aapki Dukaan</h1>
+    <p class="tagline" id="tagline"></p>
+    <div class="contact" id="contact"></div>
+  </header>
+
+  <section class="tools" aria-label="Search and filter">
+    <label for="q" hidden>Product search</label>
+    <input class="search" id="q" type="search" placeholder="Product ka naam search karein" autocomplete="off">
+    <div class="chips" id="chips" role="group" aria-label="Categories"></div>
+  </section>
+
+  <p class="count" id="count" aria-live="polite"></p>
+  <main class="grid" id="grid"></main>
+  <div class="empty" id="empty" hidden>Is naam ka koi product nahi mila.</div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+/* ======= EDIT HERE: shop details and products ======= */
+const SHOP = {
+  name: "Akash Pan Shop",
+  tagline: "Orders are accepted/taken for weddings and parties.",
+  phone: [ "9555504956",
+     "9792943659"],
+  address:[ 
+     "Shop no. AFS 19, F-Block Market, Alpha 2, Greater Noida",
+     "Shop no. Kiosk no. 10, Amarpali icon, Leisure Valley, Greater Noida",
+     "Shop no. 1, Gate no. 1, ATS Paradise, Greater Noida"
+],
+  note:  "Orders are accepted/taken for weddings and parties"
+};
+
+/* sample products: apne asli products se badal lein */
+const PRODUCTS = [
+  { name: "Sada Paan (सादा पान)", image: "images/Sada Paan.jpg", category: "Flavoured Pan", desc: "Fresh betel leaf (Paan Patta),Kattha,Chuna",},
+  { name: "Meetha Paan (मीठा पान)", image: "images/Meetha Paan.jpg", category: "Flavoured Pan", desc: "A sweet Indian mouth freshener made with betel leaves, gulkand, fennel seeds, coconut, and sweet fillings",},
+  { name: "Chocolate Paan (चॉकलेट पान)", image: "images/Chocolate Paan.jpg", category: "Flavoured Pan", desc: "A delicious blend of fresh betel leaves, rich chocolate, and sweet fillings for a delightful treat.",},
+  { name: "Fire Paan (फायर पान)", image: "images/Fire Paan.jpg", category: "Flavoured Pan", desc: "A unique paan served with a flaming presentation, offering a thrilling twist to the traditional paan experience.",},
+  { name: "Classic", image: "images/Classic.jpg", category: "Cigarettes",},
+  { name: "Classic Milds", image: "images/Classic Milds.jpg", category: "Cigarettes",},
+  { name: "Classic Ultra Milds", image: "images/Classic Ultra Milds.jpg", category: "Cigarettes",},
+  { name: "Classic Connect", image: "images/Classic Connect.jpg", category: "Cigarettes",},
+  { name: "Gold Flake Kings", image: "images/Gold Flake kings.jpg", category: "Cigarettes",},
+  { name: "Gold Flake Lights", image: "images/Gold Flake Light.jpg", category: "Cigarettes",},
+  { name: "Gold Flake Small", image: "images/Gold Flake Small.jpg", category: "Cigarettes",},
+  { name: "Marlboro Gold", image: "images/marlboro gold.jpg", category: "Cigarettes",},
+  { name: "Marlboro Red", image: "images/Malboro Red.jpg", category: "Cigarettes",},
+  { name: "Marlboro Advance", image: "images/Advance.jpg", category: "Cigarettes",},
+  { name: "ESSE Lights", image: "images/Esse Light.jpg", category: "Cigarettes",},
+  { name: "ESSE Change", image: "images/Esse Change.jpg", category: "Cigarettes",},
+  { name: "ESSE Blue", image: "images/Esse Blue.jpg", category: "Cigarettes",},
+  { name: "Davidoff Classic", image: "images/Davidoff Classic.jpg", category: "Cigarettes",},
+  { name: "Davidoff Gold", image: "images/Davidoff Gold.jpg", category: "Cigarettes",},
+  { name: "Coca-Cola", image: "images/Coca Cola.jpg", category: "Soft Drinks",},
+  { name: "Diet Coke", image: "images/Diet Coke.jpg", category: "Soft Drinks",},
+  { name: "Thums Up", image: "images/Thumsup.jpg", category: "Soft Drinks",},
+  { name: "Sprite", image: "images/Sprite.jpg", category: "Soft Drinks",},
+  { name: "Fanta", image: "images/Fanta.jpg", category: "Soft Drinks",},
+  { name: "Red Bull", image: "images/Red Bull.jpg", category: "Energy Drinks",},
+  { name: "Sting", image: "images/Sting.jpg", category: "Energy Drinks",},
+  { name: "Hell Energy", image: "images/Hell Energy.jpg", category: "Energy Drinks",},
+  { name: "Campa", image: "images/Campa.jpg", category: "Energy Drinks",},
+  { name: "Monster", image: "images/Monster.jpg", category: "Energy Drinks",},
+  { name: "Virgin Mojito", image: "images/Virgin Mojito.jpg", category: "Mocktails & Refreshing Beverages",},
+  { name: "Blue Lagoon", image: "images/Blue Lagoon.jpg", category: "Mocktails & Refreshing Beverages",},
+  { name: "Classic Mint Mojito", image: "images/Classic Mint Mojito.jpg", category: "Mocktails & Refreshing Beverages",},
+  { name: "Traditional Hookah", image: "images/Traditional hookah.jpg", category: "Hookah", desc: "Traditional Hookah featuring a classic design inspired by Indian heritage and culture.",},
+  { name: "Premium Hookah", image: "images/Premium Hookah.jpg", category: "Hookah", desc: "Elegant, high-quality hookah featuring a stylish and luxurious design.",},
+  { name: "Flavoured Hookah", image: "images/Flavoured Hookah.jpg", category: "Hookah", desc: "Hookah featuring a variety of flavours and aromatic blends."},
+  { name: "Herbal Hookah", image: "images/Harbal Hookah.jpg", category: "Hookah", desc: "Hookah made with herbal, tobacco-free blends in a variety of flavours. Herbal hookah is not risk-free.",},
+  { name: "Electronic Hookah", image: "images/Electronic Hookah.jpg", category: "Hookah", desc: "A battery-powered electronic device designed to produce flavoured vapour.",},
+  { name: "Aloo Bhujia", brand: "Haldiram's", image: "images/Aloo Bhujia.jpg", category: "Snacks",},
+  { name: "Khatta Meetha", brand: "Haldiram's", image: "images/Khatta Meetha.jpg", category: "Snacks",},
+  { name: "Bhujia", brand: "Haldiram's", image: "images/Bhujia.jpg", category: "Snacks",},
+  { name: "Panjabi Tadka", brand: "Haldiram's", image: "images/Panjabi Tadkajpg.jpg", category: "Snacks",},
+  { name: "Navrattan", brand: "Haldiram's", image: "images/Navrattan.jpg", category: "Snacks",},
+  { name: "Classic Salted", brand: "Haldiram's", image: "images/Classic Salted.jpg", category: "Snacks",},
+  { name: "Chilli Lemon", brand: "Haldiram's", image: "images/Chile Limon.jpg", category: "Snacks",},
+  { name: "Cream & Onion", brand: "Haldiram's", category: "Snacks",},
+  { name: "India's Magic Masala", brand: "Lay's", image: "images/Indian Magic Masala.jpg", category: "Snacks",},
+  { name: "American Style Cream & Onion", brand: "Lay's", image: "images/American Style Cream and Onion.jpg", category: "Snacks",},
+  { name: "Classic Salted", brand: "Lay's", image: "images/Lays Classic Salted.jpg", category: "Snacks",},
+  { name: "Sizzling Hot", brand: "Lay's", image: "images/Sizzilin hot.jpg", category: "Snacks",},
+  { name: "Maxx Macho Chilli", brand: "Lay's", category: "Snacks",},
+  { name: "Spanish Tomato", brand: "Haldiram's", image: "images/Spanish Tomato.jpg", category: "Snacks",}
+];
+/* ======= END EDIT ======= */
+
+const fmt = new Intl.NumberFormat("en-IN");
+const rupee = n => "\u20B9" + fmt.format(n);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const hueOf = s => { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) % 360; return h; };
+
+document.getElementById("shopName").textContent = SHOP.name;
+document.getElementById("tagline").textContent = SHOP.tagline;
+document.getElementById("foot").textContent = SHOP.note;
+const contact = document.getElementById("contact");
+const phoneSection = el("div");
+phoneSection.append(el("b", null, "Phone: "));
+SHOP.phone.forEach((number, index) => {
+  if (index > 0) {
+    phoneSection.append(document.createTextNode(" | "));
+  }
+  phoneSection.append(document.createTextNode(number));
+});
+contact.append(phoneSection);
+const addressSection = el("div");
+addressSection.append(el("b", null, "Our Locations:"));
+SHOP.address.forEach((address, index) => {
+  addressSection.append(
+    el("div", null, (index + 1) + ". " + address)
+  );
+});
+
+contact.append(addressSection);
+
+
+const cats = ["Sab"].concat([...new Set(PRODUCTS.map(p => p.category))]);
+let activeCat = "Sab", query = "";
+const chips = document.getElementById("chips");
+cats.forEach(c => {
+  const b = el("button", "chip", c); b.type = "button"; b.setAttribute("aria-pressed", c === activeCat);
+  b.addEventListener("click", () => { activeCat = c; [...chips.children].forEach(x => x.setAttribute("aria-pressed", x.textContent === c)); render(); });
+  chips.append(b);
+});
+document.getElementById("q").addEventListener("input", e => { query = e.target.value.trim().toLowerCase(); render(); });
+
+function card(p) {
+  const c = el("article", "card");
+  const t = el("div", "thumb"); t.style.setProperty("--h", hueOf(p.category));
+  if (p.image) { const i = document.createElement("img"); i.src = p.image; i.alt = p.name; i.loading = "lazy"; i.onerror = () => { i.remove(); t.textContent = p.name.charAt(0).toUpperCase(); }; t.append(i); }
+  const b = el("div", "body");
+  b.append(el("div", "cat", p.category));
+  if (p.brand) b.append(el("div", "brand", p.brand));
+  b.append(el("h2", "name", p.name));
+  if (p.desc) b.append(el("p", "desc", p.desc));
+  if (p.unit) b.append(el("div", "unit", p.unit));
+  if (p.soldOut) b.append(el("span", "tag out", "Abhi stock me nahi"));
+  c.append(t, b);
+  return c;
+}
+
+function render() {
+  const list = PRODUCTS.filter(p => (activeCat === "Sab" || p.category === activeCat) &&
+        (!query || (p.name + " " + (p.brand || "") + " " + (p.desc || "") + " " + p.category).toLowerCase().includes(query)));
+  const grid = document.getElementById("grid");
+  grid.replaceChildren(...list.map(card));
+  document.getElementById("empty").hidden = list.length > 0;
+  document.getElementById("count").textContent = list.length + " products";
+}
+render();
+</script>
+</body>
+</html>
